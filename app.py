@@ -42,10 +42,26 @@ def get_users():
 def home():
     return "Auto User App Running Successfully!"
 
+def get_user_by_id(user_id):
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+    user = cur.fetchone()
+    conn.close()
+    return user
+
 @app.route("/users")
 def users():
     data = get_users()
     return render_template("users.html", users=data)
+
+@app.route("/user/<int:user_id>")
+def user_detail(user_id):
+    user = get_user_by_id(user_id)
+    if user is None:
+        return "User not found", 404
+    return render_template("user_detail.html", user=user)
 
 if __name__ == "__main__":
     init_db()

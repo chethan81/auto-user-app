@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Details</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .user-card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; max-width: 500px; }
+        .back-link { margin-top: 20px; }
+        .field { margin: 10px 0; }
+        .label { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="user-card">
+        <h2>User Details</h2>
+        
+        <div class="field">
+            <span class="label">User ID:</span> {{ user["id"] }}
+        </div>
+        
+        <div class="field">
+            <span class="label">Name:</span> {{ user["name"] }}
+        </div>
+        
+        <div class="field">
+            <span class="label">Email:</span> {{ user["email"] }}
+        </div>
+        
+        <div class="field">
+            <span class="label">Status:</span> <span style="color: green;">✓ Active</span>
+        </div>
+        
+        <div class="field">
+            <span class="label">Member Since:</span> November 2025
+        </div>
+    </div>
+    
+    <div class="back-link">
+        <a href="/users">← Back to User List</a>
+    </div>
+</body>
+</html>
