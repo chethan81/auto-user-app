@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import os
 
@@ -42,6 +42,13 @@ def get_users():
 def home():
     return "Auto User App Running Successfully!"
 
+def insert_user(name, email):
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    cur.execute("INSERT INTO users (name, email) VALUES (?, ?)", (name, email))
+    conn.commit()
+    conn.close()
+
 def get_user_by_id(user_id):
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -51,8 +58,15 @@ def get_user_by_id(user_id):
     conn.close()
     return user
 
-@app.route("/users")
+@app.route("/users", methods=["GET", "POST"])
 def users():
+    if request.method == "POST":
+        name = request.form["name"]
+        email = request.form["email"]
+        if name and email:
+            insert_user(name, email)
+        return redirect(url_for("users"))
+    
     data = get_users()
     return render_template("users.html", users=data)
 
