@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User List</title>
+</head>
+<body>
+    <h2>User List (Auto Created)</h2>
+
+    <ul>
+        {% for u in users %}
+            <li>{{ u["id"] }} — {{ u["name"] }} ({{ u["email"] }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
